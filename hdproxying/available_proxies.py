@@ -13,8 +13,8 @@ class Proxies:
 
     @classmethod
     def scraperapi(cls, url: str):
-        api_key = os.getenv("SCRAPER_API_KEY")
-        proxy = f"scraperapi.render=true:{api_key}@proxy-server.scraperapi.com:8001"
+        api_key = os.getenv("PROVIDER_SCRAPPER_API")
+        proxy = f"scraperapi.country_code=eu.render=true:{api_key}@proxy-server.scraperapi.com:8001"
         proxies = {
             "https": proxy,
             "http": proxy,
@@ -28,7 +28,7 @@ class Proxies:
     @classmethod
     def zenrows(cls, url: str):
         api_key = os.getenv("PROVIDER_ZEN_ROWS")
-        proxy = f"http://{api_key}:@proxy.zenrows.com:8001"
+        proxy = f"http://{api_key}:js_render=true&premium_proxy=true&proxy_country=es@proxy.zenrows.com:8001"
         proxies = {
             "http": proxy,
             "https": proxy
