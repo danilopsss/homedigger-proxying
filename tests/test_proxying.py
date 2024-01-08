@@ -1,4 +1,4 @@
-from proxying.round_robin import ProxyRotation, AVAILABLE_PROXIES
+from hdproxying.round_robin import ProxyRotation, AVAILABLE_PROXIES
 
 
 def test_proxy_rotation():
