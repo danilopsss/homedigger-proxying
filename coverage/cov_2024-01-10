@@ -1,0 +1,9 @@
+Name                              Stmts   Miss  Cover   Missing
+---------------------------------------------------------------
+hdproxying/__init__.py                0      0   100%
+hdproxying/available_proxies.py      28     16    43%   16-25, 29-39
+hdproxying/round_robin.py            33      7    79%   17, 32-36, 47
+tests/__init__.py                     0      0   100%
+tests/test_proxying.py                8      0   100%
+---------------------------------------------------------------
+TOTAL                                69     23    67%
