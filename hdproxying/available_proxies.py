@@ -8,7 +8,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
 class Proxies:
-
     Error = namedtuple("Error", ["status_code", "content"])
 
     @classmethod
@@ -28,6 +27,7 @@ class Proxies:
     def zenrows(cls, url: str):
         api_key = os.getenv("PROVIDER_ZEN_ROWS")
         proxy = f"http://{api_key}:premium_proxy=true&proxy_country=es@proxy.zenrows.com:8001"
+        proxies = {"http": proxy, "https": proxy}
         try:
             response = requests.get(url, proxies=proxies, verify=False)
         except requests.exceptions.ConnectionError:
@@ -35,7 +35,4 @@ class Proxies:
         return response
 
 
-AVAILABLE_PROXIES = (
-    Proxies.scraperapi,
-    Proxies.zenrows 
-)
+AVAILABLE_PROXIES = (Proxies.scraperapi, Proxies.zenrows)
