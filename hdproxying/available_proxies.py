@@ -11,14 +11,26 @@ class Proxies:
     Error = namedtuple("Error", ["status_code", "content"])
 
     @classmethod
-    def scraperapi(cls, url: str):
-        api_key = os.getenv("PROVIDER_SCRAPPER_API")
-        proxy = f"scraperapi.country_code=eu.render=true:{api_key}@proxy-server.scraperapi.com:8001"
+    def bright_data(cls, url: str):
+        api_key = os.getenv("PROVIDER_BRIGHTDATA_API")
+        proxy = f"http://brd-customer-hl_e1b0c685-zone-unblocker:{api_key}@brd.superproxy.io:22225"
+
         proxies = {
             "https": proxy,
         }
         try:
             response = requests.get(url, proxies=proxies, verify=False)
+        except requests.exceptions.ConnectionError:
+            response = cls.Error(status_code=500, content="")
+        return response
+
+    @classmethod
+    def scraperapi(cls, url: str):
+        api_key = os.getenv("PROVIDER_SCRAPPER_API")
+        call_url = f"http://api.scraperapi.com?api_key={api_key}"
+        params = {"url": url}
+        try:
+            response = requests.get(call_url, params=params)
         except requests.exceptions.ConnectionError:
             response = cls.Error(status_code=500, content="")
         return response
@@ -35,4 +47,4 @@ class Proxies:
         return response
 
 
-AVAILABLE_PROXIES = (Proxies.scraperapi, Proxies.zenrows)
+AVAILABLE_PROXIES = (Proxies.scraperapi, Proxies.bright_data, Proxies.zenrows)
