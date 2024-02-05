@@ -46,5 +46,23 @@ class Proxies:
             response = cls.Error(status_code=500, content="")
         return response
 
+    @classmethod
+    def scrapeops(cls, url: str):
+        api_key = os.getenv("PROVIDER_SCRAPEOPS")
+        params = {
+            'api_key': api_key,
+            'url': url,
+        }
+        try:
+            response = requests.get(url, params=params)
+        except requests.exceptions.ConnectionError:
+            response = cls.Error(status_code=500, content="")
+        return response
 
-AVAILABLE_PROXIES = (Proxies.scraperapi, Proxies.bright_data, Proxies.zenrows)
+
+AVAILABLE_PROXIES = (
+    Proxies.scraperapi,
+    Proxies.bright_data,
+    Proxies.zenrows,
+    Proxies.scrapeops
+)
